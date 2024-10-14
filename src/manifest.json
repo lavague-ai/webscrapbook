@@ -17,6 +17,10 @@
     "128": "core/scrapbook_128.png"
   },
 
+  "externally_connectable": {
+    "matches": ["<all_urls>"]
+  },
+
   "permissions": [
     "contextMenus",
     "downloads",
@@ -42,7 +46,8 @@
       "scrapbook/server.js",
       "capturer/background.js",
       "editor/background.js",
-      "viewer/background.js"
+      "viewer/background.js",
+      "core/event_listener.js"
     ]
   },
 

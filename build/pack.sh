@@ -7,21 +7,16 @@
 # * Run this script, and the packed files are created in the ../dist directory.
 #
 #
-filename="WebScrapbook"
+key="chrome_key.pem"
 dir=$(dirname $(realpath "$0"))
 src=$(realpath "$dir/../src")
 dist=$(realpath "$dir/../dist")
-cd "$src"
 
-# Chrome extension package (for submit)
-fn="$filename.zip" &&
-rm -f "$dist/$fn" &&
-zip -r "$dist/$fn" * -x '.git*' &&
-zip -d "$dist/$fn" 'manifest-firefox.json'
+rm -rf "$dist"
+mkdir "$dist"
 
-# Firefox addon
-fn="$filename.xpi" &&
-rm -f "$dist/$fn" &&
-zip -r "$dist/$fn" * -x '.git*' &&
-zip -d "$dist/$fn" 'manifest.json' &&
-printf "@ manifest-firefox.json\n@=manifest.json\n" | zipnote -w "$dist/$fn"
+# The key needs to always be the same for the page to be able to communicate to the extension
+/opt/google/chrome/google-chrome --pack-extension="$src" --pack-extension-key="$key"
+mv src.crx "$dist/WebScrapbook.crx"
+
+
